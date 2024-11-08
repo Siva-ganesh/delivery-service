@@ -19,19 +19,15 @@ public class DeliveryController {
     @PostMapping("/invoice")
     public ResponseEntity<String> processInvoice(@RequestBody InvoiceDto invoiceDto) {
 
-        // Generates a random number between 0 and 3
         int randomValue = random.nextInt(5);
         return switch (randomValue) {
-//            case 0 -> ResponseEntity.ok("Success");
-            case 0 -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
-            case 1 -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
-            case 2 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
-            case 3 -> ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Service Not Available");
+            case 0, 2, 3 -> ResponseEntity.ok("Success");
+//            case 0 -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
+            case 1 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+//            case 2 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+//            case 3 -> ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Service Not Available");
             case 4 -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access");
-            default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unknown Error");
+            default -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
         };
-
     }
-
-
 }
